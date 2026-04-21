@@ -1,7 +1,7 @@
+import os
+import uuid
 from qdrant_client import QdrantClient
 from qdrant_client.models import VectorParams, Distance, PointStruct, Filter, FieldCondition, MatchValue
-import uuid
-
 COLLECTION = "all_sites"
 VECTOR_SIZE = 384
 
