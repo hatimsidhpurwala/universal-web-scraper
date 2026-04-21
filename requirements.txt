@@ -14,7 +14,6 @@ langchain-groq
 beautifulsoup4
 html2text
 sentence-transformers
-torch --index-url https://download.pytorch.org/whl/cpu
 Pillow
 pytesseract
 opencv-python-headless
