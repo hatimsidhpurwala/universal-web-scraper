@@ -14,7 +14,6 @@ langchain-groq
 beautifulsoup4
 html2text
 fastembed
-sentence-transformers
 Pillow
 pytesseract
 opencv-python-headless
