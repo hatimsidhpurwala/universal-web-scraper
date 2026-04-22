@@ -13,7 +13,7 @@ langgraph
 langchain-groq
 beautifulsoup4
 html2text
-fastembed
+fastembed==0.3.6
 Pillow
 pytesseract
 opencv-python-headless

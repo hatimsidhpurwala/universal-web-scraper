@@ -1,4 +1,3 @@
-import os
 from fastembed import TextEmbedding
 
 _model = None
@@ -14,10 +13,10 @@ def embed_chunks(chunks: list[dict]) -> list[dict]:
     texts = [c["text"] for c in chunks]
     embeddings = list(model.embed(texts))
     for i, chunk in enumerate(chunks):
-        chunk["vector"] = embeddings[i].tolist()
+        chunk["vector"] = list(embeddings[i])
     return chunks
 
 def embed_query(query: str) -> list[float]:
     model = get_model()
-    embeddings = list(model.embed([query]))
-    return embeddings[0].tolist()
+    result = list(model.embed([query]))
+    return list(result[0])
