@@ -2,7 +2,7 @@ import os
 import uuid
 from qdrant_client import QdrantClient
 from qdrant_client.models import VectorParams, Distance, PointStruct, Filter, FieldCondition, MatchValue
-COLLECTION = "all_sites"
+COLLECTION = "scraped_pages"
 VECTOR_SIZE = 384
 
 def get_client():
