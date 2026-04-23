@@ -50,26 +50,19 @@ async def whatsapp_webhook(request: Request):
     media_type = form.get("MediaContentType0", "")
     media_url = form.get("MediaUrl0", "")
 
-    # --- Handle voice message ---
     if num_media > 0 and "audio" in media_type:
         transcribed = transcribe_audio(media_url)
         if transcribed:
             body = transcribed
-        else:
-            body = "voice message (could not transcribe)"
 
-    # --- Handle image message ---
     elif num_media > 0 and "image" in media_type:
         ocr_text = extract_image_text(media_url)
         if ocr_text:
             body = ocr_text
-        else:
-            body = form.get("Body", "").strip() or "image received (no text found)"
 
     if not body:
         body = "Hello"
 
-    # --- Get answer from RAG pipeline ---
     chat_history = user_sessions.get(user_number, [])
     try:
         result = ask(body, chat_history=chat_history)
@@ -80,7 +73,11 @@ async def whatsapp_webhook(request: Request):
             if clean_sources:
                 answer += f"\n\n📌 Info from: {', '.join(clean_sources)}"
     except Exception as e:
-        answer = "Sorry, I couldn't find an answer right now. Please try again or contact us directly."
+        import traceback
+        error_details = traceback.format_exc()
+        print(f"❌ WEBHOOK ERROR: {e}")
+        print(f"❌ TRACEBACK: {error_details}")
+        answer = f"Debug error: {str(e)}"
 
     resp = MessagingResponse()
     resp.message(answer)
